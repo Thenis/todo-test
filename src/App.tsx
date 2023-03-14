@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import "./App.css";
+import { observer } from "mobx-react-lite";
+import { TodoStore } from "./infrastructure/stores/todo.store";
 
-function App() {
+const todoStore = new TodoStore();
+
+const App = observer(() => {
+  useEffect(() => {
+    todoStore.fetch();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {todoStore.viewModel.map((viewModel) => {
+        return (
+          <div>
+            {viewModel.content} - {viewModel.completed.toString()}
+            <button onClick={() => viewModel.toggleComplete()}>
+              Toggle Todo
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
-}
+});
 
 export default App;
