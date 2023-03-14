@@ -1,6 +1,9 @@
+import { singleton } from "tsyringe";
+import { ITodoRepository } from "../interfaces/todo-repository.interface";
 import { TodoModel } from "../models/todo.model";
 
-export class TodoRepository {
+@singleton()
+export class TodoRepository implements ITodoRepository {
   get(): Promise<TodoModel[]> {
     return Promise.resolve([
       {
@@ -10,5 +13,3 @@ export class TodoRepository {
     ]);
   }
 }
-
-export const todoRepository = new TodoRepository();

@@ -1,29 +1,15 @@
-import { useEffect } from "react";
 import "./App.css";
-import { observer } from "mobx-react-lite";
-import { TodoStore } from "./infrastructure/stores/todo.store";
+import TodoContainer from "./containers/TodoContainer";
+import { TodoProvider } from "./context/todo.context";
 
-const todoStore = new TodoStore();
-
-const App = observer(() => {
-  useEffect(() => {
-    todoStore.fetch();
-  }, []);
-
+const App = () => {
   return (
     <div className="App">
-      {todoStore.viewModel.map((viewModel) => {
-        return (
-          <div>
-            {viewModel.content} - {viewModel.completed.toString()}
-            <button onClick={() => viewModel.toggleComplete()}>
-              Toggle Todo
-            </button>
-          </div>
-        );
-      })}
+      <TodoProvider>
+        <TodoContainer />
+      </TodoProvider>
     </div>
   );
-});
+};
 
 export default App;
