@@ -10,18 +10,23 @@ const TodoContainer = observer(() => {
     todoStore.fetch();
   }, [todoStore]);
 
+  const refetchTodo = () => {
+    todoStore.fetch();
+  };
+
   return (
     <>
-      {todoStore.viewModel.map((viewModel) => {
-        return (
-          <div>
-            {viewModel.content} - {viewModel.completed.toString()}
-            <button onClick={() => viewModel.toggleComplete()}>
-              Toggle Todo
-            </button>
-          </div>
-        );
-      })}
+      <div>
+        {todoStore.viewModel?.content} -
+        {todoStore.viewModel?.completed.toString()}
+        <button onClick={() => todoStore.viewModel?.toggleComplete()}>
+          Toggle Todo
+        </button>
+      </div>
+
+      <button style={{ margin: "8px" }} onClick={refetchTodo}>
+        Refetch Todo
+      </button>
     </>
   );
 });

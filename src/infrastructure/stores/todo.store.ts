@@ -8,7 +8,7 @@ import { TodoViewModel } from "../viewmodels/todo.viewmodel";
 
 @singleton()
 export class TodoStore implements ITodoStore {
-  viewModel: TodoViewModel[] = [];
+  viewModel: TodoViewModel | null = null;
 
   constructor(
     @inject(SERVICE_KEYS.TODO_REPOSITORY)
@@ -21,10 +21,8 @@ export class TodoStore implements ITodoStore {
   }
 
   fetch = flow(function* (this: TodoStore) {
-    const model: TodoModel[] = yield this.todoRepository.get();
+    const model: TodoModel = yield this.todoRepository.get();
 
-    this.viewModel = model.map(
-      (m) => new TodoViewModel(m.content, m.completed)
-    );
+    this.viewModel = new TodoViewModel(model.content, model.completed);
   });
 }

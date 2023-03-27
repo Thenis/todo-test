@@ -1,17 +1,19 @@
-import { createContext, PropsWithChildren, useContext } from "react";
+import { createContext, PropsWithChildren, useContext, useRef } from "react";
 import { ITodoStore } from "src/infrastructure/interfaces/todo-store.interface";
 import { SERVICE_KEYS } from "src/infrastructure/service-keys";
 import { container } from "tsyringe";
 
-const todoStore = container.resolve<ITodoStore>(SERVICE_KEYS.TODO_STORE);
-
 const TodoContext = createContext<{
   todoStore: ITodoStore;
-}>({ todoStore });
+}>({} as any);
 
 export const TodoProvider = ({ children }: PropsWithChildren) => {
+  const todoStore = useRef(
+    container.resolve<ITodoStore>(SERVICE_KEYS.TODO_STORE)
+  );
+
   return (
-    <TodoContext.Provider value={{ todoStore }}>
+    <TodoContext.Provider value={{ todoStore: todoStore.current }}>
       {children}
     </TodoContext.Provider>
   );
