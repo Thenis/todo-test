@@ -1,4 +1,6 @@
 export const SERVICE_KEYS = {
+  AUTH_SERVICE: Symbol.for("AUTH_SERVICE"),
+  AUTH_STORE: Symbol.for("AUTH_STORE"),
   TODO_REPOSITORY: Symbol.for("TODO_REPOSITORY"),
   TODO_STORE: Symbol.for("TODO_STORE"),
   NOTIFICATION_STORE: Symbol.for("NOTIFICATION_STORE"),

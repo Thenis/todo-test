@@ -6,9 +6,11 @@ import TodoContainer from "./containers/TodoContainer";
 import { usePendingRequest } from "./context/pending-request.context";
 import { TodoProvider } from "./context/todo.context";
 import { observer } from "mobx-react-lite";
+import { useAuth } from "./context/auth.context";
 
 const App = observer(() => {
   const { pendingRequestStore } = usePendingRequest();
+  const { authStore } = useAuth();
 
   const showLoader = useMemo(
     () => pendingRequestStore.pendingRequestList.length > 0,
@@ -27,6 +29,9 @@ const App = observer(() => {
           }}
         />
       </Box>
+
+      <button onClick={() => authStore.login()}>Login</button>
+
       <TodoProvider>
         <TodoContainer />
       </TodoProvider>

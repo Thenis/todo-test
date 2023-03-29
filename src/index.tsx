@@ -6,14 +6,17 @@ import "./infrastructure/container";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { PendingRequestProvider } from "./context/pending-request.context";
+import { AuthProvider } from "./context/auth.context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <PendingRequestProvider>
-    <App />
-  </PendingRequestProvider>
+  <AuthProvider>
+    <PendingRequestProvider>
+      <App />
+    </PendingRequestProvider>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
