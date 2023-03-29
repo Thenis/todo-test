@@ -1,10 +1,17 @@
 import { Box, Button, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "src/context/auth.context";
 import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
 
 const Login = observer(() => {
   const { authStore } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    await authStore.login();
+    navigate("/home");
+  };
 
   return (
     <AppPaper elevation={8}>
@@ -17,7 +24,7 @@ const Login = observer(() => {
         <Typography variant="h4">Login</Typography>
 
         <Box mt={4}>
-          <Button variant="contained" onClick={() => authStore.login()}>
+          <Button variant="contained" onClick={handleLogin}>
             Login with Google
           </Button>
         </Box>

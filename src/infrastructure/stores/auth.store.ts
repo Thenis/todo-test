@@ -6,6 +6,7 @@ import { SERVICE_KEYS } from "../service-keys";
 
 export interface IAuthStore {
   user: UserModel | null;
+  getUser(): Promise<void>;
   get isAuth(): boolean;
   login(): Promise<void>;
   logout(): Promise<void>;
@@ -20,6 +21,10 @@ export class AuthStore implements IAuthStore {
     @inject(SERVICE_KEYS.AUTH_SERVICE) private authService: IAuthService
   ) {
     makeObservable(this);
+
+    this.authService.registerAuthListener((user) => {
+      this.user = user;
+    });
   }
 
   @computed
@@ -27,10 +32,13 @@ export class AuthStore implements IAuthStore {
     return !!this.user;
   }
 
+  getUser = flow(function* (this: AuthStore) {
+    const user = yield this.authService.getUser();
+    this.user = user;
+  });
+
   login = flow(function* (this: AuthStore) {
     const user = yield this.authService.login();
-
-    this.user = user;
 
     console.log("User logged in: ", user);
   });

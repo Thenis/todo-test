@@ -16,7 +16,7 @@ const TodoContainer = observer(() => {
 
   return (
     <>
-      <div>
+      {/* <div>
         {todoStore.viewModel?.content} -
         {todoStore.viewModel?.completed.toString()}
         <button onClick={() => todoStore.viewModel?.toggleComplete()}>
@@ -26,7 +26,7 @@ const TodoContainer = observer(() => {
 
       <button style={{ margin: "8px" }} onClick={refetchTodo}>
         Refetch Todo
-      </button>
+      </button> */}
     </>
   );
 });

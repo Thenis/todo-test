@@ -17,7 +17,7 @@ const Navigation = observer(({ tabs }: NavigationProps) => {
   const { authStore } = useAuth();
 
   const renderTabs = tabs.map(({ label, link }) => (
-    <ListItem disablePadding>
+    <ListItem key={label} disablePadding>
       <ListItemStyle>
         <ListItemButton to={link} component={DrawerNavLink} end>
           {label}

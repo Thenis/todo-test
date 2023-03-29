@@ -5,8 +5,8 @@ import Navigation from "./shared/components/Navigation/Navigation";
 
 const tabs = [
   {
-    label: "Policies",
-    link: "/policy",
+    label: "Home",
+    link: "/home",
   },
 ] as any;
 

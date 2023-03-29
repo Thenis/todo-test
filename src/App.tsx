@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from "./context/auth.context";
 import {
   createBrowserRouter,
   Navigate,
+  redirect,
   RouterProvider,
 } from "react-router-dom";
 import Layout from "./Layout";
@@ -17,6 +18,12 @@ import { NotificationProvider } from "./context/notification.context";
 import Notifier from "./shared/components/Notifier/Notifier";
 import Home from "./pages/Home/Home";
 import ProtectedRoute from "./shared/components/ProtectedRoute/ProtectedRoute";
+import { container } from "tsyringe";
+import { IAuthStore } from "./infrastructure/stores/auth.store";
+import { SERVICE_KEYS } from "./infrastructure/service-keys";
+import { urlQueryParser } from "./utils/urlQueryParser";
+
+const authStore = container.resolve<IAuthStore>(SERVICE_KEYS.AUTH_STORE);
 
 const router = createBrowserRouter([
   {
@@ -29,6 +36,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "login",
+        loader: async (args) => {
+          const { redirectTo } = urlQueryParser(args.request.url) as {
+            redirectTo?: string;
+          };
+
+          await authStore.getUser();
+
+          if (authStore.isAuth) {
+            return redirect("/home");
+          }
+
+          if (redirectTo) redirect(redirectTo);
+
+          return null;
+        },
         element: <Login />,
       },
       {

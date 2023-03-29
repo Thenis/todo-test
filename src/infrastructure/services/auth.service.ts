@@ -23,22 +23,58 @@ export class AuthService implements IAuthService {
   constructor() {
     this.firebaseInstance = firebase.initializeApp(firebaseConfig);
     this.auth = firebase.auth();
+    this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     this.provider = new firebase.auth.GoogleAuthProvider();
     this.provider.setCustomParameters({ prompt: "select_account" });
   }
 
-  async login(): Promise<UserModel> {
-    const response = await this.auth.signInWithPopup(this.provider);
-    const model = new UserModel();
+  registerAuthListener(callback: (user: UserModel | null) => void): void {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        const model = new UserModel();
 
-    model.displayName = response.user?.displayName as string;
-    model.accessToken = (response.credential as any).accessToken as string;
-    model.email = response.user?.email as string;
+        model.displayName = user.displayName as string;
+        model.accessToken = (user as any).accessToken as string;
+        model.email = user.email as string;
 
-    return model;
+        console.log("User logged in: ", user);
+
+        callback(model);
+      } else {
+        console.log("User logged out");
+
+        callback(null);
+      }
+    });
+  }
+
+  getUser(): Promise<UserModel | null> {
+    return new Promise((resolve, reject) => {
+      this.auth.onAuthStateChanged((user) => {
+        if (user) {
+          const model = new UserModel();
+
+          model.displayName = user.displayName as string;
+          model.accessToken = (user as any).accessToken as string;
+          model.email = user.email as string;
+
+          console.log("User logged in: ", user);
+
+          resolve(model);
+        } else {
+          console.log("User logged out");
+
+          resolve(null);
+        }
+      });
+    });
+  }
+
+  async login(): Promise<void> {
+    await this.auth.signInWithPopup(this.provider);
   }
 
   async logout(): Promise<void> {
-    return this.auth.signOut();
+    return await this.auth.signOut();
   }
 }
