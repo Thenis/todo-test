@@ -15,6 +15,8 @@ import Login from "./pages/Login/Login";
 import { SnackbarProvider } from "notistack";
 import { NotificationProvider } from "./context/notification.context";
 import Notifier from "./shared/components/Notifier/Notifier";
+import Home from "./pages/Home/Home";
+import ProtectedRoute from "./shared/components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "home",
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/",

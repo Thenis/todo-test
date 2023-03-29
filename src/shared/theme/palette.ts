@@ -5,8 +5,8 @@ function createGradient(color1: string, color2: string) {
   return `linear-gradient(to bottom, ${color1}, ${color2})`;
 }
 
-const GREEN = {
-  500: "#002D24",
+const BLUE = {
+  500: "#0072E5",
 };
 
 const BEIGE = {
@@ -37,7 +37,7 @@ const GREY = {
 const PRIMARY = {
   lighter: "#D1E9FC",
   light: "#2c564c",
-  main: GREEN[500],
+  main: BLUE[500],
   dark: "#000400",
   darker: "#061B64",
   contrastText: "#fff",

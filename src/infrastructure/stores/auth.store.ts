@@ -13,19 +13,16 @@ export interface IAuthStore {
 
 @singleton()
 export class AuthStore implements IAuthStore {
+  @observable
   user: UserModel | null = null;
 
   constructor(
     @inject(SERVICE_KEYS.AUTH_SERVICE) private authService: IAuthService
   ) {
-    makeObservable(this, {
-      user: observable,
-      login: flow,
-      logout: flow,
-      isAuth: computed,
-    });
+    makeObservable(this);
   }
 
+  @computed
   get isAuth() {
     return !!this.user;
   }

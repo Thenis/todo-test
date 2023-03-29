@@ -1,12 +1,29 @@
-import { Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import { useAuth } from "src/context/auth.context";
 import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
 
-const Login = () => {
+const Login = observer(() => {
+  const { authStore } = useAuth();
+
   return (
     <AppPaper elevation={8}>
-      <Typography>Login</Typography>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="h4">Login</Typography>
+
+        <Box mt={4}>
+          <Button variant="contained" onClick={() => authStore.login()}>
+            Login with Google
+          </Button>
+        </Box>
+      </Box>
     </AppPaper>
   );
-};
+});
 
 export default Login;
