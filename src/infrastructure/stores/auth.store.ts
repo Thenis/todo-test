@@ -1,4 +1,4 @@
-import { flow, makeObservable, observable } from "mobx";
+import { computed, flow, makeObservable, observable } from "mobx";
 import { inject, singleton } from "tsyringe";
 import type { IAuthService } from "../interfaces/auth-service.interface";
 import { UserModel } from "../models/user.model";
@@ -6,6 +6,7 @@ import { SERVICE_KEYS } from "../service-keys";
 
 export interface IAuthStore {
   user: UserModel | null;
+  get isAuth(): boolean;
   login(): Promise<void>;
   logout(): Promise<void>;
 }
@@ -21,7 +22,12 @@ export class AuthStore implements IAuthStore {
       user: observable,
       login: flow,
       logout: flow,
+      isAuth: computed,
     });
+  }
+
+  get isAuth() {
+    return !!this.user;
   }
 
   login = flow(function* (this: AuthStore) {

@@ -2,11 +2,44 @@ import { useMemo } from "react";
 import { Box, LinearProgress } from "@mui/material";
 
 import "./App.css";
-import TodoContainer from "./containers/TodoContainer";
 import { usePendingRequest } from "./context/pending-request.context";
-import { TodoProvider } from "./context/todo.context";
 import { observer } from "mobx-react-lite";
-import { useAuth } from "./context/auth.context";
+import { AuthProvider, useAuth } from "./context/auth.context";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import Layout from "./Layout";
+import Login from "./pages/Login/Login";
+import { SnackbarProvider } from "notistack";
+import { NotificationProvider } from "./context/notification.context";
+import Notifier from "./shared/components/Notifier/Notifier";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <AuthProvider>
+        <Layout />
+      </AuthProvider>
+    ),
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "/",
+        element: <Navigate to="/login" replace />,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/login" replace />,
+      },
+    ],
+  },
+]);
 
 const App = observer(() => {
   const { pendingRequestStore } = usePendingRequest();
@@ -20,7 +53,7 @@ const App = observer(() => {
   console.log(pendingRequestStore.pendingRequestList);
 
   return (
-    <div className="App">
+    <Box className="App" position="relative">
       <Box width="100vw" position="fixed" zIndex={12001}>
         <LinearProgress
           sx={{
@@ -29,13 +62,18 @@ const App = observer(() => {
           }}
         />
       </Box>
+      <SnackbarProvider
+        maxSnack={10}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        disableWindowBlurListener={true}
+      >
+        <NotificationProvider>
+          <Notifier />
 
-      <button onClick={() => authStore.login()}>Login</button>
-
-      <TodoProvider>
-        <TodoContainer />
-      </TodoProvider>
-    </div>
+          <RouterProvider router={router} />
+        </NotificationProvider>
+      </SnackbarProvider>
+    </Box>
   );
 });
 

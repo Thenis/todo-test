@@ -1,5 +1,9 @@
 import { container } from "tsyringe";
 import { IAuthService } from "./interfaces/auth-service.interface";
+import {
+  INotificationStore,
+  NotificationStore,
+} from "./interfaces/notification.store";
 import { ITodoRepository } from "./interfaces/todo-repository.interface";
 import { ITodoStore } from "./interfaces/todo-store.interface";
 import { TodoRepository } from "./repositories/todo.repository";
@@ -15,6 +19,11 @@ import { TodoStore } from "./stores/todo.store";
 container.registerSingleton<IAuthService>(
   SERVICE_KEYS.AUTH_SERVICE,
   AuthService
+);
+
+container.registerSingleton<INotificationStore>(
+  SERVICE_KEYS.NOTIFICATION_STORE,
+  NotificationStore
 );
 
 container.registerSingleton<IAuthStore>(SERVICE_KEYS.AUTH_STORE, AuthStore);
