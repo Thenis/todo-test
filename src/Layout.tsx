@@ -8,6 +8,10 @@ const tabs = [
     label: "Home",
     link: "/home",
   },
+  {
+    label: "Create Category",
+    link: "/create-category",
+  },
 ] as any;
 
 const Layout = () => {

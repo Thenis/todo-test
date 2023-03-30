@@ -23,6 +23,7 @@ import { IAuthStore } from "./infrastructure/stores/auth.store";
 import { SERVICE_KEYS } from "./infrastructure/service-keys";
 import { urlQueryParser } from "./utils/urlQueryParser";
 import { CreateCategoryProvider } from "./context/create-category.context";
+import CreateCategory from "./pages/CreateCategory/CreateCategory";
 
 const authStore = container.resolve<IAuthStore>(SERVICE_KEYS.AUTH_STORE);
 
@@ -60,6 +61,16 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <CreateCategoryProvider>
               <Home />
+            </CreateCategoryProvider>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "create-category",
+        element: (
+          <ProtectedRoute>
+            <CreateCategoryProvider>
+              <CreateCategory />
             </CreateCategoryProvider>
           </ProtectedRoute>
         ),
