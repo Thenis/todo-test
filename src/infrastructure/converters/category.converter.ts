@@ -18,6 +18,7 @@ export const categoryConverter = {
     const data = snapshot.data(options);
     const model = new CategoryModel();
     model.title = data.title;
+    model.links = data.links;
 
     return model;
   },

@@ -19,6 +19,10 @@ import {
 } from "./services/category/create-category.service";
 import { AuthStore, IAuthStore } from "./stores/auth.store";
 import {
+  IListCategoriesStore,
+  ListCategoriesStore,
+} from "./stores/list-categories.store";
+import {
   IPendingRequestStore,
   PendingRequestStore,
 } from "./stores/pending-request.store";
@@ -61,6 +65,11 @@ container.registerSingleton<ICategoryRepository>(
 container.registerSingleton<ICreateCategoryService>(
   SERVICE_KEYS.CREATE_CATEGORY_SERVICE,
   CreateCategoryService
+);
+
+container.registerSingleton<IListCategoriesStore>(
+  SERVICE_KEYS.LIST_CATEGORY_STORE,
+  ListCategoriesStore
 );
 
 container.registerSingleton<ITodoRepository>(

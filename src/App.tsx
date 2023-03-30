@@ -24,6 +24,7 @@ import { SERVICE_KEYS } from "./infrastructure/service-keys";
 import { urlQueryParser } from "./utils/urlQueryParser";
 import { CreateCategoryProvider } from "./context/create-category.context";
 import CreateCategory from "./pages/CreateCategory/CreateCategory";
+import { ListCategoriesProvider } from "./context/list-categories.context";
 
 const authStore = container.resolve<IAuthStore>(SERVICE_KEYS.AUTH_STORE);
 
@@ -59,9 +60,9 @@ const router = createBrowserRouter([
         path: "home",
         element: (
           <ProtectedRoute>
-            <CreateCategoryProvider>
+            <ListCategoriesProvider>
               <Home />
-            </CreateCategoryProvider>
+            </ListCategoriesProvider>
           </ProtectedRoute>
         ),
       },
@@ -89,14 +90,11 @@ const router = createBrowserRouter([
 
 const App = observer(() => {
   const { pendingRequestStore } = usePendingRequest();
-  const { authStore } = useAuth();
 
   const showLoader = useMemo(
     () => pendingRequestStore.pendingRequestList.length > 0,
     [pendingRequestStore.pendingRequestList.length]
   );
-
-  console.log(pendingRequestStore.pendingRequestList);
 
   return (
     <Box className="App" position="relative">
