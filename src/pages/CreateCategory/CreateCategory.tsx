@@ -6,6 +6,14 @@ import { useCreateCategoryContext } from "src/context/create-category.context";
 import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
 import FormInput from "src/shared/components/FormInput/FormInput";
 
+const titleRules = {
+  required: "This field is required",
+  minLength: {
+    value: 5,
+    message: "Title must be at least 5 characters",
+  },
+};
+
 const CreateCategory = observer(() => {
   const { createCategoryService } = useCreateCategoryContext();
 
@@ -34,7 +42,12 @@ const CreateCategory = observer(() => {
           spacing={4}
           rowGap={2}
         >
-          <FormInput label="Title" name="title" control={control} />
+          <FormInput
+            rules={titleRules}
+            label="Title"
+            name="title"
+            control={control}
+          />
 
           <Grid my={2} item md={12} display="flex" alignItems="flex-start">
             <Button type="submit" variant="contained" startIcon={<Save />}>
