@@ -1,5 +1,7 @@
 import { CreateCategoryCriteria } from "../criteria/create-category.criteria";
-import { ICreatable } from "./crud.interface";
+import { CategoryModel } from "../models/category.model";
+import { ICreatable, IReadableAll } from "./crud.interface";
 
 export interface ICategoryRepository
-  extends ICreatable<CreateCategoryCriteria> {}
+  extends ICreatable<CreateCategoryCriteria>,
+    IReadableAll<CategoryModel> {}
