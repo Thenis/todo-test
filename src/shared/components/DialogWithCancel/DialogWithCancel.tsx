@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { Close } from "@mui/icons-material";
 import { Box, Dialog, DialogContent, IconButton } from "@mui/material";
 
-interface DialogWithCancelProps {
+export interface DialogWithCancelProps {
   isOpen: boolean;
   close: (e: any) => void;
 }
