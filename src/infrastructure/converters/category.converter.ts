@@ -1,15 +1,24 @@
 import firebase from "firebase/compat";
+import {
+  DocumentData,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+} from "firebase/firestore";
+import { CreateCategoryCriteria } from "../criteria/create-category.criteria";
 import { CategoryModel } from "../models/category.model";
 
 export const categoryConverter = {
-  toFirestore(category: CategoryModel): firebase.firestore.DocumentData {
+  toFirestore(category: CreateCategoryCriteria): DocumentData {
     return { title: category.title };
   },
   fromFirestore(
-    snapshot: firebase.firestore.QueryDocumentSnapshot,
-    options: firebase.firestore.SnapshotOptions
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
   ): CategoryModel {
     const data = snapshot.data(options);
-    return { title: data.title };
+    const model = new CategoryModel();
+    model.title = data.title;
+
+    return model;
   },
 };

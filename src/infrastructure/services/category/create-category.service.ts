@@ -1,3 +1,4 @@
+import { CreateCategoryCriteria } from "src/infrastructure/criteria/create-category.criteria";
 import type { ICategoryRepository } from "src/infrastructure/interfaces/category-repository.interface";
 import { SERVICE_KEYS } from "src/infrastructure/service-keys";
 import { inject, singleton } from "tsyringe";
@@ -13,5 +14,11 @@ export class CreateCategoryService implements ICreateCategoryService {
     private readonly categoryRepository: ICategoryRepository
   ) {}
 
-  async create(title: string): Promise<void> {}
+  async create(title: string): Promise<void> {
+    const criteria = new CreateCategoryCriteria();
+
+    criteria.title = title;
+
+    await this.categoryRepository.create(criteria);
+  }
 }

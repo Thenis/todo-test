@@ -1,3 +1,5 @@
+import firebase from "firebase/compat/app";
+import { getFirestore } from "firebase/firestore";
 import { container } from "tsyringe";
 import { IAuthService } from "./interfaces/auth-service.interface";
 import { ICategoryRepository } from "./interfaces/category-repository.interface";
@@ -21,6 +23,23 @@ import {
   PendingRequestStore,
 } from "./stores/pending-request.store";
 import { TodoStore } from "./stores/todo.store";
+
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+const auth = app.auth();
+const db = getFirestore(app);
+
+container.register(SERVICE_KEYS.FIREBASE_APP, { useValue: app });
+container.register(SERVICE_KEYS.FIREBASE_AUTH, { useValue: auth });
+container.register(SERVICE_KEYS.FIREBASE_DB, { useValue: db });
 
 container.registerSingleton<IAuthService>(
   SERVICE_KEYS.AUTH_SERVICE,

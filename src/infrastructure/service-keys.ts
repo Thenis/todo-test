@@ -1,4 +1,7 @@
 export const SERVICE_KEYS = {
+  FIREBASE_APP: Symbol.for("FIREBASE_APP"),
+  FIREBASE_AUTH: Symbol.for("FIREBASE_AUTH"),
+  FIREBASE_DB: Symbol.for("FIREBASE_DB"),
   AUTH_SERVICE: Symbol.for("AUTH_SERVICE"),
   AUTH_STORE: Symbol.for("AUTH_STORE"),
   TODO_REPOSITORY: Symbol.for("TODO_REPOSITORY"),
