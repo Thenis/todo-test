@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { AppBar, Box, CssBaseline, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import Navigation from "./shared/components/Navigation/Navigation";
@@ -13,6 +13,7 @@ const tabs = [
 const Layout = () => {
   return (
     <Box display="flex">
+      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
