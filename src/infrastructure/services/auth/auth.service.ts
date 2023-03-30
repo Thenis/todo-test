@@ -2,8 +2,8 @@ import { singleton } from "tsyringe";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
-import { IAuthService } from "../interfaces/auth-service.interface";
-import { UserModel } from "../models/user.model";
+import { IAuthService } from "../../interfaces/auth-service.interface";
+import { UserModel } from "../../models/user.model";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,

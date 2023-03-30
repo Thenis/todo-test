@@ -1,14 +1,20 @@
 import { container } from "tsyringe";
 import { IAuthService } from "./interfaces/auth-service.interface";
+import { ICategoryRepository } from "./interfaces/category-repository.interface";
 import {
   INotificationStore,
   NotificationStore,
 } from "./interfaces/notification.store";
 import { ITodoRepository } from "./interfaces/todo-repository.interface";
 import { ITodoStore } from "./interfaces/todo-store.interface";
+import { CategoryRepository } from "./repositories/category.repository";
 import { TodoRepository } from "./repositories/todo.repository";
 import { SERVICE_KEYS } from "./service-keys";
-import { AuthService } from "./services/auth.service";
+import { AuthService } from "./services/auth/auth.service";
+import {
+  CreateCategoryService,
+  ICreateCategoryService,
+} from "./services/category/create-category.service";
 import { AuthStore, IAuthStore } from "./stores/auth.store";
 import {
   IPendingRequestStore,
@@ -27,6 +33,16 @@ container.registerSingleton<INotificationStore>(
 );
 
 container.registerSingleton<IAuthStore>(SERVICE_KEYS.AUTH_STORE, AuthStore);
+
+container.registerSingleton<ICategoryRepository>(
+  SERVICE_KEYS.CATEGORY_REPOSITORY,
+  CategoryRepository
+);
+
+container.registerSingleton<ICreateCategoryService>(
+  SERVICE_KEYS.CREATE_CATEGORY_SERVICE,
+  CreateCategoryService
+);
 
 container.registerSingleton<ITodoRepository>(
   SERVICE_KEYS.TODO_REPOSITORY,

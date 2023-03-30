@@ -6,9 +6,15 @@ import DialogWithCancel, {
 } from "src/shared/components/DialogWithCancel/DialogWithCancel";
 import FormElement from "src/shared/components/FormElement/FormElement";
 
-interface CreateCategoryDialogProps extends DialogWithCancelProps {}
+interface CreateCategoryDialogProps extends DialogWithCancelProps {
+  createCategory: (title: string) => void;
+}
 
-const CreateCategoryDialog = ({ isOpen, close }: CreateCategoryDialogProps) => {
+const CreateCategoryDialog = ({
+  isOpen,
+  close,
+  createCategory,
+}: CreateCategoryDialogProps) => {
   const {
     register,
     handleSubmit,
@@ -29,8 +35,8 @@ const CreateCategoryDialog = ({ isOpen, close }: CreateCategoryDialogProps) => {
   });
 
   const onSubmit = (data: { title: string }) => {
-    console.log(data);
     reset();
+    createCategory(data.title);
   };
 
   const handleClose = (e: any) => {

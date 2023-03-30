@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { observer } from "mobx-react-lite";
 import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import CreateCategoryDialog from "./components/CreateCategoryDialog";
 
@@ -15,6 +14,10 @@ const Home = observer(() => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCreateCategory = (title: string) => {
+    console.log(title);
   };
 
   return (
@@ -33,7 +36,11 @@ const Home = observer(() => {
 
       <AppPaper elevation={8}></AppPaper>
 
-      <CreateCategoryDialog isOpen={open} close={handleClose} />
+      <CreateCategoryDialog
+        isOpen={open}
+        close={handleClose}
+        createCategory={handleCreateCategory}
+      />
     </>
   );
 });
