@@ -1,5 +1,6 @@
 import type { ICategoryRepository } from "src/infrastructure/interfaces/category-repository.interface";
-import { singleton } from "tsyringe";
+import { SERVICE_KEYS } from "src/infrastructure/service-keys";
+import { inject, singleton } from "tsyringe";
 
 export interface ICreateCategoryService {
   create(title: string): Promise<void>;
@@ -7,7 +8,10 @@ export interface ICreateCategoryService {
 
 @singleton()
 export class CreateCategoryService implements ICreateCategoryService {
-  constructor(private readonly categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject(SERVICE_KEYS.CATEGORY_REPOSITORY)
+    private readonly categoryRepository: ICategoryRepository
+  ) {}
 
   async create(title: string): Promise<void> {}
 }

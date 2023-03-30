@@ -22,6 +22,7 @@ import { container } from "tsyringe";
 import { IAuthStore } from "./infrastructure/stores/auth.store";
 import { SERVICE_KEYS } from "./infrastructure/service-keys";
 import { urlQueryParser } from "./utils/urlQueryParser";
+import { CreateCategoryProvider } from "./context/create-category.context";
 
 const authStore = container.resolve<IAuthStore>(SERVICE_KEYS.AUTH_STORE);
 
@@ -57,7 +58,9 @@ const router = createBrowserRouter([
         path: "home",
         element: (
           <ProtectedRoute>
-            <Home />
+            <CreateCategoryProvider>
+              <Home />
+            </CreateCategoryProvider>
           </ProtectedRoute>
         ),
       },

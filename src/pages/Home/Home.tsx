@@ -4,8 +4,11 @@ import { observer } from "mobx-react-lite";
 import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
 import { useState } from "react";
 import CreateCategoryDialog from "./components/CreateCategoryDialog";
+import { useCreateCategoryContext } from "src/context/create-category.context";
 
 const Home = observer(() => {
+  const { createCategoryService } = useCreateCategoryContext();
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -16,8 +19,8 @@ const Home = observer(() => {
     setOpen(false);
   };
 
-  const handleCreateCategory = (title: string) => {
-    console.log(title);
+  const handleCreateCategory = async (title: string) => {
+    await createCategoryService.create(title);
   };
 
   return (
