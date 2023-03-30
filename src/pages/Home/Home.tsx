@@ -21,6 +21,8 @@ const Home = observer(() => {
 
   const handleCreateCategory = async (title: string) => {
     await createCategoryService.create(title);
+
+    setOpen(false);
   };
 
   return (

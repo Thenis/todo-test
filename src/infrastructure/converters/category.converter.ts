@@ -9,7 +9,7 @@ import { CategoryModel } from "../models/category.model";
 
 export const categoryConverter = {
   toFirestore(category: CreateCategoryCriteria): DocumentData {
-    return { title: category.title };
+    return { title: category.title, links: category.links };
   },
   fromFirestore(
     snapshot: QueryDocumentSnapshot,

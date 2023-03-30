@@ -18,6 +18,7 @@ export class CreateCategoryService implements ICreateCategoryService {
     const criteria = new CreateCategoryCriteria();
 
     criteria.title = title;
+    criteria.links = [];
 
     await this.categoryRepository.create(criteria);
   }
