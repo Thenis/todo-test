@@ -1,5 +1,4 @@
-export class LinkModel {
-  id: string;
+export class CreateLinkCriteria {
   link: string;
   categoryId: string;
 }

@@ -9,9 +9,6 @@ export class CategoryViewModel implements IViewModel<CategoryModel> {
   @observable
   title: string;
 
-  @observable
-  linkIds: string[];
-
   constructor() {
     makeObservable(this);
   }
@@ -20,6 +17,5 @@ export class CategoryViewModel implements IViewModel<CategoryModel> {
   update(model: CategoryModel): void {
     this.id = model.id;
     this.title = model.title;
-    this.linkIds = model.linkIds;
   }
 }

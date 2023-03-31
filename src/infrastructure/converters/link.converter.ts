@@ -3,12 +3,12 @@ import {
   QueryDocumentSnapshot,
   SnapshotOptions,
 } from "firebase/firestore";
-import { CreateCategoryCriteria } from "../criteria/create-category.criteria";
+import { CreateLinkCriteria } from "../criteria/create-link.criteria";
 import { LinkModel } from "../models/link.model";
 
 export const linkConverter = {
-  toFirestore(category: CreateCategoryCriteria): DocumentData {
-    return { title: category.title, linkIds: category.linkIds };
+  toFirestore(payload: CreateLinkCriteria): DocumentData {
+    return { link: payload.link, categoryId: payload.categoryId };
   },
   fromFirestore(
     snapshot: QueryDocumentSnapshot,
@@ -18,7 +18,7 @@ export const linkConverter = {
     const model = new LinkModel();
 
     model.categoryId = data.categoryId;
-    model.url = data.url;
+    model.link = data.link;
     model.id = snapshot.id;
 
     return model;

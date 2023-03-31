@@ -24,8 +24,6 @@ const CategoryList = observer(() => {
     listCategoriesStore.getAll();
   }, [listCategoriesStore]);
 
-  console.log(listCategoriesStore.viewModel);
-
   return (
     <List
       subheader={

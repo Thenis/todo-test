@@ -1,5 +1,6 @@
 import { computed, flow, makeObservable, observable } from "mobx";
 import { inject, singleton } from "tsyringe";
+import { CreateLinkCriteria } from "../criteria/create-link.criteria";
 import type { ILinkRepository } from "../interfaces/link-repository.interface";
 import { LinkModel } from "../models/link.model";
 import { SERVICE_KEYS } from "../service-keys";
@@ -11,6 +12,7 @@ export interface IListLinkStore {
   viewModel: LinkViewModel[];
   get links(): LinkViewModel[];
   getAll(categoryId: string): Promise<void>;
+  create(categoryId: string, link: string): Promise<void>;
 }
 
 @singleton()
@@ -51,5 +53,19 @@ export class ListLinkStore implements IListLinkStore {
     } finally {
       this.loading = false;
     }
+  });
+
+  create = flow(function* (
+    this: ListLinkStore,
+    categoryId: string,
+    link: string
+  ) {
+    const criteria = new CreateLinkCriteria();
+
+    criteria.categoryId = categoryId;
+    criteria.link = link;
+
+    yield this.linkRepository.create(criteria);
+    yield this.getAll(categoryId);
   });
 }

@@ -25,8 +25,8 @@ const ListCategory = observer(() => {
     setIsOpen(false);
   };
 
-  const handleCreateLink = (link: string) => {
-    // listLinksStore.create(title, url, categoryId as string);
+  const handleCreateLink = async (link: string) => {
+    await listLinksStore.create(categoryId as string, link);
     setIsOpen(false);
   };
 

@@ -7,7 +7,7 @@ export class LinkViewModel implements IViewModel<LinkModel> {
   id: string;
 
   @observable
-  url: string;
+  link: string;
 
   @observable
   categoryId: string;
@@ -19,7 +19,7 @@ export class LinkViewModel implements IViewModel<LinkModel> {
   @action
   update(model: LinkModel): void {
     this.id = model.id;
-    this.url = model.url;
+    this.link = model.link;
     this.categoryId = model.categoryId;
   }
 }
