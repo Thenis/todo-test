@@ -4,10 +4,13 @@ import { CategoryModel } from "../models/category.model";
 
 export class CategoryViewModel implements IViewModel<CategoryModel> {
   @observable
+  id: string;
+
+  @observable
   title: string;
 
   @observable
-  links: string[];
+  linkIds: string[];
 
   constructor() {
     makeObservable(this);
@@ -15,7 +18,8 @@ export class CategoryViewModel implements IViewModel<CategoryModel> {
 
   @action
   update(model: CategoryModel): void {
+    this.id = model.id;
     this.title = model.title;
-    this.links = model.links;
+    this.linkIds = model.linkIds;
   }
 }

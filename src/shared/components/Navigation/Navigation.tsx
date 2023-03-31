@@ -1,6 +1,8 @@
 import { Box, Button, ListItem, ListItemButton, Toolbar } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useAuth } from "src/context/auth.context";
+import { ListCategoriesProvider } from "src/context/list-categories.context";
+import CategoryList from "../CategoryList/CategoryList";
 import RenderIf from "../RenderIf/RenderIf";
 import {
   DrawerNavLink,
@@ -40,6 +42,13 @@ const Navigation = observer(({ tabs }: NavigationProps) => {
 
       <RenderIf condition={authStore.isAuth}>{renderTabs}</RenderIf>
 
+      <Box mt={4}>
+        <ListCategoriesProvider>
+          <RenderIf condition={authStore.isAuth}>
+            <CategoryList />
+          </RenderIf>
+        </ListCategoriesProvider>
+      </Box>
       <RenderIf condition={authStore.isAuth}>
         <ListItemUsername sx={{ marginTop: "auto" }}>
           {authStore.user?.email}

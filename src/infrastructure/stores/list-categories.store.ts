@@ -1,4 +1,4 @@
-import { computed, flow, observable, toJS } from "mobx";
+import { action, computed, flow, makeObservable, observable, toJS } from "mobx";
 import { inject, singleton } from "tsyringe";
 import type { ICategoryRepository } from "../interfaces/category-repository.interface";
 import { CategoryModel } from "../models/category.model";
@@ -8,6 +8,7 @@ import { CategoryViewModel } from "../viewmodels/category.viewmodel";
 export interface IListCategoriesStore {
   loading: boolean;
   loaded: boolean;
+  viewModel: CategoryViewModel[];
   get categories(): CategoryViewModel[];
   getAll(): Promise<void>;
 }
@@ -26,7 +27,9 @@ export class ListCategoriesStore implements IListCategoriesStore {
   constructor(
     @inject(SERVICE_KEYS.CATEGORY_REPOSITORY)
     private readonly categoryRepository: ICategoryRepository
-  ) {}
+  ) {
+    makeObservable(this);
+  }
 
   @computed
   get categories(): CategoryViewModel[] {

@@ -3,8 +3,10 @@ import { inject, singleton } from "tsyringe";
 import {
   collection,
   doc,
+  DocumentReference,
   Firestore,
   getDocs,
+  QuerySnapshot,
   setDoc,
 } from "firebase/firestore";
 
@@ -22,9 +24,9 @@ export class CategoryRepository implements ICategoryRepository {
 
   @TrackRequest()
   async getAll(): Promise<CategoryModel[]> {
-    const querySnapshot = await getDocs(
-      collection(this.db, "categories").withConverter(categoryConverter)
-    );
+    const querySnapshot = (await getDocs(
+      collection(this.db, "categories").withConverter(categoryConverter as any)
+    )) as QuerySnapshot<CategoryModel>;
 
     return querySnapshot.docs.map((doc) => doc.data());
   }
@@ -32,8 +34,8 @@ export class CategoryRepository implements ICategoryRepository {
   @TrackRequest()
   async create(category: CreateCategoryCriteria): Promise<void> {
     const ref = doc(collection(this.db, "categories")).withConverter(
-      categoryConverter
-    );
+      categoryConverter as any
+    ) as DocumentReference<CategoryModel>;
 
     await setDoc(ref, category);
   }

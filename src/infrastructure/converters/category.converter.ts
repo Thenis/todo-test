@@ -1,4 +1,3 @@
-import firebase from "firebase/compat";
 import {
   DocumentData,
   QueryDocumentSnapshot,
@@ -9,7 +8,7 @@ import { CategoryModel } from "../models/category.model";
 
 export const categoryConverter = {
   toFirestore(category: CreateCategoryCriteria): DocumentData {
-    return { title: category.title, links: category.links };
+    return { title: category.title, linkIds: category.linkIds };
   },
   fromFirestore(
     snapshot: QueryDocumentSnapshot,
@@ -18,7 +17,8 @@ export const categoryConverter = {
     const data = snapshot.data(options);
     const model = new CategoryModel();
     model.title = data.title;
-    model.links = data.links;
+    model.linkIds = data.linkIds;
+    model.id = snapshot.id;
 
     return model;
   },

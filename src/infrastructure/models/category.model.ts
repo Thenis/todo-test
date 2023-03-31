@@ -1,4 +1,5 @@
 export class CategoryModel {
+  id: string;
   title: string;
-  links: string[];
+  linkIds: string[];
 }
