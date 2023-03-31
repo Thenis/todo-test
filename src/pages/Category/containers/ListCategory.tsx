@@ -1,20 +1,62 @@
+import { Add } from "@mui/icons-material";
+import { Box, Button, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useListLinksContext } from "src/context/list-links.context";
+import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
+import CreateNewLink from "../components/CreateNewLink";
 
 const ListCategory = observer(() => {
   const { id: categoryId } = useParams();
-
   const { listLinksStore } = useListLinksContext();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     listLinksStore.getAll(categoryId as string);
   }, [listLinksStore, categoryId]);
 
-  console.log(listLinksStore.viewModel);
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
 
-  return <>Test</>;
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleCreateLink = (link: string) => {
+    // listLinksStore.create(title, url, categoryId as string);
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <Box
+        component="header"
+        mb={4}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Typography variant="h5">Links</Typography>
+
+        <Box display="flex">
+          <Button onClick={handleOpen} variant="contained" endIcon={<Add />}>
+            Create Link
+          </Button>
+        </Box>
+      </Box>
+
+      <AppPaper elevation={8}></AppPaper>
+
+      <CreateNewLink
+        isOpen={isOpen}
+        createLink={handleCreateLink}
+        close={handleClose}
+      />
+    </>
+  );
 });
 
 export default ListCategory;
