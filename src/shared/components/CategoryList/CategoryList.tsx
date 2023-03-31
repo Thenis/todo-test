@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useListCategoriesContext } from "src/context/list-categories.context";
 import { ListItemStyle } from "../Navigation/Navigation.style";
 
@@ -38,7 +39,9 @@ const CategoryList = observer(() => {
       {listCategoriesStore.viewModel.map((category) => (
         <ListItemStyle key={category.id}>
           <ListItemButton>
-            <ListItemText primary={category.title} />
+            <ListItemText>
+              <Link to={`/category/${category.id}`}>{category.title}</Link>
+            </ListItemText>
           </ListItemButton>
         </ListItemStyle>
       ))}

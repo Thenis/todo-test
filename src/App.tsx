@@ -25,6 +25,8 @@ import { urlQueryParser } from "./utils/urlQueryParser";
 import { CreateCategoryProvider } from "./context/create-category.context";
 import CreateCategory from "./pages/CreateCategory/CreateCategory";
 import { ListCategoriesProvider } from "./context/list-categories.context";
+import Category from "./pages/Category/Category";
+import ListCategory from "./pages/Category/containers/ListCategory";
 
 const authStore = container.resolve<IAuthStore>(SERVICE_KEYS.AUTH_STORE);
 
@@ -66,16 +68,32 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+
       {
-        path: "create-category",
+        path: "category",
         element: (
           <ProtectedRoute>
-            <CreateCategoryProvider>
-              <CreateCategory />
-            </CreateCategoryProvider>
+            <Category />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: "create",
+            element: (
+              <ProtectedRoute>
+                <CreateCategoryProvider>
+                  <CreateCategory />
+                </CreateCategoryProvider>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":id",
+            element: <ListCategory />,
+          },
+        ],
       },
+
       {
         path: "/",
         element: <Navigate to="/login" replace />,

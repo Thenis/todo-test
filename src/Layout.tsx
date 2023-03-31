@@ -1,4 +1,4 @@
-import { AppBar, Box, CssBaseline, Toolbar } from "@mui/material";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import Navigation from "./shared/components/Navigation/Navigation";
@@ -10,14 +10,13 @@ const tabs = [
   },
   {
     label: "Create Category",
-    link: "/create-category",
+    link: "/category/create",
   },
 ] as any;
 
 const Layout = () => {
   return (
     <Box display="flex">
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
