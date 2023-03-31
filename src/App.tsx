@@ -27,6 +27,7 @@ import CreateCategory from "./pages/CreateCategory/CreateCategory";
 import { ListCategoriesProvider } from "./context/list-categories.context";
 import Category from "./pages/Category/Category";
 import ListCategory from "./pages/Category/containers/ListCategory";
+import { ListLinksProvider } from "./context/list-links.context";
 
 const authStore = container.resolve<IAuthStore>(SERVICE_KEYS.AUTH_STORE);
 
@@ -89,7 +90,11 @@ const router = createBrowserRouter([
           },
           {
             path: ":id",
-            element: <ListCategory />,
+            element: (
+              <ListLinksProvider>
+                <ListCategory />
+              </ListLinksProvider>
+            ),
           },
         ],
       },

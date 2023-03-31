@@ -3,6 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { container } from "tsyringe";
 import { IAuthService } from "./interfaces/auth-service.interface";
 import { ICategoryRepository } from "./interfaces/category-repository.interface";
+import { ILinkRepository } from "./interfaces/link-repository.interface";
 import {
   INotificationStore,
   NotificationStore,
@@ -10,6 +11,7 @@ import {
 import { ITodoRepository } from "./interfaces/todo-repository.interface";
 import { ITodoStore } from "./interfaces/todo-store.interface";
 import { CategoryRepository } from "./repositories/category.repository";
+import { LinkRepository } from "./repositories/link.repository";
 import { TodoRepository } from "./repositories/todo.repository";
 import { SERVICE_KEYS } from "./service-keys";
 import { AuthService } from "./services/auth/auth.service";
@@ -22,6 +24,7 @@ import {
   IListCategoriesStore,
   ListCategoriesStore,
 } from "./stores/list-categories.store";
+import { IListLinkStore, ListLinkStore } from "./stores/list-link.store";
 import {
   IPendingRequestStore,
   PendingRequestStore,
@@ -70,6 +73,16 @@ container.registerSingleton<ICreateCategoryService>(
 container.registerSingleton<IListCategoriesStore>(
   SERVICE_KEYS.LIST_CATEGORY_STORE,
   ListCategoriesStore
+);
+
+container.registerSingleton<ILinkRepository>(
+  SERVICE_KEYS.LINK_REPOSITORY,
+  LinkRepository
+);
+
+container.registerSingleton<IListLinkStore>(
+  SERVICE_KEYS.LIST_LINK_STORE,
+  ListLinkStore
 );
 
 container.registerSingleton<ITodoRepository>(
