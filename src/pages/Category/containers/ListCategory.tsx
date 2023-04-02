@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import { Add, Summarize } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
@@ -6,6 +6,28 @@ import { useParams } from "react-router-dom";
 import { useListLinksContext } from "src/context/list-links.context";
 import { AppPaper } from "src/shared/components/AppPaper/AppPaper";
 import CreateNewLink from "../components/CreateNewLink";
+import RoundedTable from "src/shared/components/RoundedTable/RoundedTable";
+import { GridActionsCellItem, GridColumns } from "@mui/x-data-grid";
+
+const linkColumnDefs: GridColumns = [
+  {
+    field: "link",
+    headerName: "Link",
+    sortable: false,
+    flex: 1,
+  },
+  {
+    type: "actions",
+    field: "actions",
+    width: 80,
+    getActions: (params) => [
+      <GridActionsCellItem
+        icon={<Summarize color="primary" fontSize="large" />}
+        label="Summarize"
+      />,
+    ],
+  },
+];
 
 const ListCategory = observer(() => {
   const { id: categoryId } = useParams();
@@ -48,7 +70,20 @@ const ListCategory = observer(() => {
         </Box>
       </Box>
 
-      <AppPaper elevation={8}></AppPaper>
+      <AppPaper elevation={8}>
+        <RoundedTable
+          loading={listLinksStore.loading}
+          paginationMode="client"
+          rows={listLinksStore.links}
+          pageSize={listLinksStore.links.length}
+          columns={linkColumnDefs}
+          hideFooter
+          autoHeight
+          height="auto"
+          disableSelectionOnClick
+          getRowHeight={() => 70}
+        />
+      </AppPaper>
 
       <CreateNewLink
         isOpen={isOpen}
