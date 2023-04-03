@@ -1,0 +1,5 @@
+node_modules
+build
+build_docker_image.sh
+generate_load_env.sh
+.env.development
