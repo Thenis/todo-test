@@ -30,6 +30,12 @@ import {
   PendingRequestStore,
 } from "./stores/pending-request.store";
 import { TodoStore } from "./stores/todo.store";
+import { IHttpClient } from "./interfaces/http-client.interface";
+import { IHttpService } from "./interfaces/http-service.interface";
+import { AxiosHttpClient } from "./services/http/http-client";
+import { HttpService } from "./services/http/http.service";
+import { SummaryRepository } from "./repositories/summary.repository";
+import { SummaryService } from "./services/summary/summary.service";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -47,6 +53,20 @@ const db = getFirestore(app);
 container.register(SERVICE_KEYS.FIREBASE_APP, { useValue: app });
 container.register(SERVICE_KEYS.FIREBASE_AUTH, { useValue: auth });
 container.register(SERVICE_KEYS.FIREBASE_DB, { useValue: db });
+
+container.registerSingleton<IHttpClient>(
+  SERVICE_KEYS.HTTP_CLIENT,
+  AxiosHttpClient
+);
+
+container.registerSingleton<IHttpService>(
+  SERVICE_KEYS.HTTP_SERVICE,
+  HttpService
+);
+
+container.registerSingleton(SERVICE_KEYS.SUMMARY_REPOSITORY, SummaryRepository);
+
+container.registerSingleton(SERVICE_KEYS.SUMMARY_SERVICE, SummaryService);
 
 container.registerSingleton<IAuthService>(
   SERVICE_KEYS.AUTH_SERVICE,
