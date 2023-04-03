@@ -1,20 +1,21 @@
-import {
-  List,
-  ListItemButton,
-  ListItemText,
-  ListSubheader,
-  styled,
-} from "@mui/material";
+import { List, ListItemButton, ListSubheader, styled } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useListCategoriesContext } from "src/context/list-categories.context";
-import { ListItemStyle } from "../Navigation/Navigation.style";
+import { DrawerNavLink, ListItemStyle } from "../Navigation/Navigation.style";
 
 const ListSubheaderStyle = styled("div")(({ theme }) => ({
   color: theme.palette.text.secondary,
-  margin: "4px 8px",
+  margin: "12px 16px",
   textTransform: "capitalize",
+
+  ".MuiListSubheader-root": {
+    backgroundColor: "transparent",
+    borderBottom: `1px solid ${theme.palette.grey[400]}`,
+    textAlign: "left",
+    paddingLeft: "4px",
+    fontSize: `${theme.typography.body1.fontSize}`,
+  },
 }));
 
 const CategoryList = observer(() => {
@@ -36,10 +37,12 @@ const CategoryList = observer(() => {
     >
       {listCategoriesStore.viewModel.map((category) => (
         <ListItemStyle key={category.id}>
-          <ListItemButton>
-            <ListItemText>
-              <Link to={`/category/${category.id}`}>{category.title}</Link>
-            </ListItemText>
+          <ListItemButton
+            component={DrawerNavLink}
+            to={`/category/${category.id}`}
+            end
+          >
+            {category.title}
           </ListItemButton>
         </ListItemStyle>
       ))}
