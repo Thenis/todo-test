@@ -34,7 +34,7 @@ jobs:
           ./build_docker_image.sh
 
       - name: Tag Docker image
-        run: docker tag notebase notebase.azurecr.io/notebase:@latest
+        run: docker tag notebase:@latest notebase.azurecr.io/notebase:@latest
 
       - name: Push Docker image
         run: docker push notebase.azurecr.io/notebase@latest
