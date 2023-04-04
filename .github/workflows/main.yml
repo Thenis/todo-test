@@ -28,10 +28,16 @@ jobs:
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         run: |
           chmod +x ./build_docker_image.sh
           ./build_docker_image.sh
+
+      - name: Tag Docker image
+        run: docker tag notebase notebase.azurecr.io/notebase:@latest
+
+      - name: Push Docker image
+        run: docker push notebase.azurecr.io/notebase@latest
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
