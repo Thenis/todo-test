@@ -22,7 +22,7 @@ done
 # UNIQUE_TAG=$(git rev-parse --short HEAD)
 
 # Build the Docker image and pass the environment variables as build arguments
-docker build --platform linux/amd64 $BUILD_ARGS -t notebase:@latest .
+docker build --platform linux/amd64 $BUILD_ARGS -t notebase:latest .
 
 # Remove the temporary JSON file
 rm env_variables.json

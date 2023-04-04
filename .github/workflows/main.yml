@@ -34,14 +34,14 @@ jobs:
           ./build_docker_image.sh
 
       - name: Tag Docker image
-        run: docker tag notebase:@latest notebase.azurecr.io/notebase:@latest
+        run: docker tag notebase:latest notebase.azurecr.io/notebase:latest
 
       - name: Push Docker image
-        run: docker push notebase.azurecr.io/notebase@latest
+        run: docker push notebase.azurecr.io/notebase:latest
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: notebase
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: notebase.azurecr.io/notebase@latest
+          images: notebase.azurecr.io/notebase:latest
