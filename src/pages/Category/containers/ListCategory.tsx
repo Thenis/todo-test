@@ -10,26 +10,6 @@ import RoundedTable from "src/shared/components/RoundedTable/RoundedTable";
 import { GridActionsCellItem, GridColumns } from "@mui/x-data-grid";
 import { useSummaryContext } from "src/context/summary.context";
 
-const linkColumnDefs: GridColumns = [
-  {
-    field: "link",
-    headerName: "Link",
-    sortable: false,
-    flex: 1,
-  },
-  {
-    type: "actions",
-    field: "actions",
-    width: 80,
-    getActions: (params) => [
-      <GridActionsCellItem
-        icon={<Summarize color="primary" fontSize="large" />}
-        label="Summarize"
-      />,
-    ],
-  },
-];
-
 const ListCategory = observer(() => {
   const { id: categoryId } = useParams();
   const { listLinksStore } = useListLinksContext();
