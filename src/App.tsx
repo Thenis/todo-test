@@ -51,7 +51,7 @@ const router = createBrowserRouter([
           await authStore.getUser();
 
           if (authStore.isAuth) {
-            return redirect("/home");
+            return redirect("/category/create");
           }
 
           if (redirectTo) redirect(redirectTo);

@@ -5,10 +5,6 @@ import Navigation from "./shared/components/Navigation/Navigation";
 
 const tabs = [
   {
-    label: "Home",
-    link: "/home",
-  },
-  {
     label: "Create Category",
     link: "/category/create",
   },
