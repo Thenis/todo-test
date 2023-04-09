@@ -36,6 +36,8 @@ import { AxiosHttpClient } from "./services/http/http-client";
 import { HttpService } from "./services/http/http.service";
 import { SummaryRepository } from "./repositories/summary.repository";
 import { SummaryService } from "./services/summary/summary.service";
+import { ITrackingService } from "./interfaces/tracking-service.interface";
+import { TrackingService } from "./services/tracking/tracking.service";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -62,6 +64,11 @@ container.registerSingleton<IHttpClient>(
 container.registerSingleton<IHttpService>(
   SERVICE_KEYS.HTTP_SERVICE,
   HttpService
+);
+
+container.registerSingleton<ITrackingService>(
+  SERVICE_KEYS.TRACKING_SERVICE,
+  TrackingService
 );
 
 container.registerSingleton(SERVICE_KEYS.SUMMARY_REPOSITORY, SummaryRepository);

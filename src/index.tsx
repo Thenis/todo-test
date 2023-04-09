@@ -7,6 +7,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { PendingRequestProvider } from "./context/pending-request.context";
 import AppThemeProvider from "./shared/theme";
+import { container } from "tsyringe";
+import { SERVICE_KEYS } from "./infrastructure/service-keys";
+
+container.resolve(SERVICE_KEYS.TRACKING_SERVICE);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

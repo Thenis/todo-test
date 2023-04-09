@@ -3,13 +3,13 @@ import {
   doc,
   DocumentReference,
   Firestore,
-  getDoc,
   getDocs,
   query,
   QuerySnapshot,
   setDoc,
   where,
 } from "firebase/firestore";
+import { AppTrackEvent } from "src/shared/decorators/track-event.decorator";
 import { TrackRequest } from "src/shared/decorators/track-request.decorator";
 import { inject, singleton } from "tsyringe";
 import { linkConverter } from "../converters/link.converter";
@@ -34,6 +34,7 @@ export class LinkRepository implements ILinkRepository {
   }
 
   @TrackRequest()
+  @AppTrackEvent({ name: "get-all-links" })
   async getAll(categoryId: string): Promise<LinkModel[]> {
     const linksQuery = query(
       collection(this.db, "links"),

@@ -4,7 +4,7 @@ import { Box, LinearProgress } from "@mui/material";
 import "./App.css";
 import { usePendingRequest } from "./context/pending-request.context";
 import { observer } from "mobx-react-lite";
-import { AuthProvider, useAuth } from "./context/auth.context";
+import { AuthProvider } from "./context/auth.context";
 import {
   createBrowserRouter,
   Navigate,
