@@ -10,7 +10,7 @@ const Login = observer(() => {
 
   const handleLogin = async () => {
     await authStore.login();
-    navigate("/home");
+    navigate("/category/create");
   };
 
   return (
