@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Replace these with your Azure Web App's name and resource group
 APP_NAME="notebase"
 RESOURCE_GROUP="notebase"
 

@@ -185,7 +185,7 @@ const ListTable2 = ({
           </TableHead>
           <TableBody>
             {loading ? (
-              <TableRow>
+              <TableRow data-testid="loading-indicator">
                 <TableCell colSpan={10} rowSpan={10} height="100%">
                   <Box position="relative">
                     <AppBackdrop open={loading}>

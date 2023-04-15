@@ -85,7 +85,10 @@ const FormInput = <N extends FieldValues>({
               endAdornment:
                 showClear && value?.length > 1 ? (
                   <InputAdornment position="end">
-                    <IconButton onClick={(e) => clearClick?.(e)}>
+                    <IconButton
+                      data-testid="clear-icon"
+                      onClick={(e) => clearClick?.(e)}
+                    >
                       <Clear />
                     </IconButton>
                   </InputAdornment>

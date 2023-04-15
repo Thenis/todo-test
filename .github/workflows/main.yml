@@ -3,7 +3,7 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - main # Replace with the branch you want to trigger the deployment
+      - main
 
 jobs:
   build-and-deploy:

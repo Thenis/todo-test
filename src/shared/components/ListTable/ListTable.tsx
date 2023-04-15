@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { DataGrid, DataGridProps } from "@mui/x-data-grid";
 
-interface ListTableProps extends DataGridProps {
+export interface ListTableProps extends DataGridProps {
   height?: string;
   pageSize: number;
 }
@@ -30,6 +30,7 @@ const ListTable = ({
         height: height,
         width: "100%",
       }}
+      data-testid="mock-datagrid"
     >
       <DataGrid
         disableColumnFilter
@@ -51,6 +52,7 @@ const ListTable = ({
         hideFooterPagination={hideFooterPagination}
         {...props}
       />
+      {loading && <div data-testid="mock-datagrid-loading"></div>}
     </Box>
   );
 };

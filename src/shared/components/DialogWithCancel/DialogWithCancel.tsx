@@ -21,7 +21,7 @@ const DialogWithCancel = ({
         if (reason === "escapeKeyDown") close(e);
       }}
     >
-      <DialogContent>
+      <DialogContent data-testid="dialog-content">
         <Box display="flex" justifyContent="flex-end">
           <IconButton color="primary" onClick={(e) => close(e)}>
             <Close />

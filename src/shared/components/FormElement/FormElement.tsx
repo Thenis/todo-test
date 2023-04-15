@@ -2,7 +2,7 @@ import { Help } from "@mui/icons-material";
 import { Box, FormHelperText, Grid, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 
-interface FormElementProps {
+export interface FormElementProps {
   label?: string;
   errorMessage?: string | undefined;
   formElementSpan?: number;
@@ -28,6 +28,7 @@ const FormElement = ({
             </Typography>
             {infoText ? (
               <Tooltip
+                role="tooltip"
                 title={
                   <div
                     style={{
@@ -40,6 +41,7 @@ const FormElement = ({
                 }
               >
                 <Help
+                  data-testid="help-icon"
                   color="info"
                   fontSize="small"
                   sx={{
